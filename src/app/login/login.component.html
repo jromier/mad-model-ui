@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <h1 i18n="@@login.title">Log in</h1>
+      <div class="alert alert-danger alert-dismissible" *ngIf="authenticationFailed">
+        <button type="button" class="close" aria-label="Close" (click)="authenticationFailed = false;">
+          <span aria-hidden="true">&#215;</span>
+        </button>
+        <span i18n="@@login.authFailed">Nope, try again…</span>
+      </div>
+      <form (ngSubmit)="authenticate()" [formGroup]="loginForm">
+        <div class="form-group">
+          <label i18n="@@login.url" for="baseUrl">HTTP Backend URL</label>
+          <input id="baseUrl" class="form-control" type="url" formControlName="baseUrl" />
+          <div
+            i18n="@@login.urlRequired"
+            *ngIf="baseUrl.dirty && baseUrl.hasError('required')"
+            class="alert alert-danger"
+            style="margin-top: 4px"
+          >
+            HTTP backend URL is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label i18n="@@MAD.login" for="login">Login</label>
+          <input id="login" class="form-control" type="text" formControlName="login" />
+          <div
+            i18n="@@login.loginRequired"
+            *ngIf="login.dirty && login.hasError('required')"
+            class="alert alert-danger"
+            style="margin-top: 4px"
+          >
+            login is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label i18n="@@login.password" for="password">Password</label>
+          <input id="password" class="form-control" type="password" formControlName="password" />
+        </div>
+        <button class="btn btn-large btn-primary" type="submit" [disabled]="!loginForm.valid">
+          <span class="fa fa-user-secret" style="margin-right: 4px"></span><span i18n="@@login.loginIn">Log me in!</span>
+        </button>
+      </form>
+    </div>
+  </div>
+  
